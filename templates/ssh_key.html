@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+</head>
+<body>
+{% include 'menu.html' %}
+<h1>SSH Public Key</h1>
+        <pre>{{ key_content }}</pre>
+        <form action="{{ url_for('generate_key') }}" method="post">
+            <button type="submit">Generate New SSH Key</button>
+        </form>
+</body>
+</html>

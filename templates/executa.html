@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Registros</title>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+  </head>
+  <body>
+    {% include 'menu.html' %}
+    <ul>
+      {% for registro in registros %}
+        <li>{{ registro.id }} - {{ registro.nome }}
+          <form method="post" style="display:inline;">
+            <input type="hidden" name="registro_id" value="{{ registro.id }}">
+            <button type="submit">RUN</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if resultado_script %}
+      <h2>Resultado do Script:</h2>
+      <pre>{{ resultado_script }}</pre>
+    {% endif %}
+  </body>
+</html>
+

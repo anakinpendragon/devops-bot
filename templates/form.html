@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Registro</title>
+    
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+</head>
+<body>
+    {% include 'menu.html' %}
+    {% if error %}
+        <div style="color: red;">{{ error }}</div>
+    {% endif %}
+    <form method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="{{ nome }}" required><br>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" >
+            <option value="cron" {% if tipo == 'cron' %}selected{% endif %}>Cron</option>
+            <option value="webhook" {% if tipo == 'webhook' %}selected{% endif %}>Webhook</option>
+        </select><br>
+        <label for="cron">Cron:</label>
+        <input type="text" id="cron" name="cron" value="{{ cron }}"><br>
+        <label for="script">Script:</label>
+        <textarea id="script" name="script" required>{{ script }}</textarea><br>
+        <input type="submit" value="Adicionar">
+    </form>
+    <a href="{{ url_for('jobs') }}">Voltar</a>
+</body>
+</html>
+

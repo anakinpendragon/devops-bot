@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit JOB</title>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+  </head>
+  <body>
+    {% include 'menu.html' %}
+    <form method="post">
+      Nome: <input type="text" name="nome" value="{{ registro.nome }}"><br>
+      Tipo: <input type="text" name="tipo" value="{{ registro.tipo }}"><br>
+      Cron: <input type="text" name="cron" value="{{ registro.cron }}"><br>
+      Script: <textarea name="script">{{ registro.script }}</textarea><br>
+      <button type="submit">Save</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <a href="{{ url_for('index') }}">HOME</a>
+  </body>
+</html>

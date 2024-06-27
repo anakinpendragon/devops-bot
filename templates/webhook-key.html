@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Keys</title>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+</head>
+<body>
+    {% include 'menu.html' %}
+    <h1>Webhook Keys</h1>
+    <form action="/webhook-key/" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Add</button>
+    </form>
+    <h2>Keys</h2>
+    <ul>
+        {% for key in keys %}
+        <li>{{ key.name }}: {{ key.key }}
+            <a href="{{ url_for('webhook_delete', id=key.id) }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

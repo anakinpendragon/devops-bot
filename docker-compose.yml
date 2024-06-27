@@ -1,0 +1,16 @@
+version: '1.0'
+services:
+  vdp_proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    volumes:
+    # Just specify a path and let the Engine create a volume
+      - ./data/scripts:/usr/src/scripts
+      - ./data/crons:/etc/crontabs/
+      - ./data/ssh:/root/.ssh/
+      - ./data/db:/usr/src/instance
+    ports:
+      - 8080:8080
+      

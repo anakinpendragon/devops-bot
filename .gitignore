@@ -1,0 +1,6 @@
+./data/ssh/*
+./data/db/*
+./data/crons/*
+./data/scripts/*
+
+

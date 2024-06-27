@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Process</title>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+</head>
+<body>
+    {% include 'menu.html' %}
+    <form action="{{ url_for('edit_process', id=process.id) }}" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ process.name }}"><br>
+        <label for="frequency">Frequency (Linux Crontab Format):</label><br>
+        <input type="text" id="frequency" name="frequency" value="{{ process.frequency }}"><br>
+        <label for="date">Date:</label><br>
+        <input type="text" id="date" name="date" value="{{ process.date }}"><br>
+        <label for="text">Text:</label><br>
+        <textarea id="text" name="text">{{ process.text }}</textarea><br>
+        <input type="submit" value="Save Changes">
+    </form>
+</body>
+</html>
+

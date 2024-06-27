@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerenciar Usuários</title>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+</head>
+<body>
+    {% include 'menu.html' %}
+    <h2>Gerenciar Usuários</h2>
+    <form method="POST">
+        <input type="hidden" name="add_user">
+        <label for="usuario">Usuário:</label>
+        <input type="text" id="usuario" name="usuario" required><br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required><br>
+        <label for="admin">Admin:</label>
+        <input type="radio" id="admin" name="admin" value="1"> Sim
+        <input type="radio" id="admin" name="admin" value="0" checked> Não<br>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <h3>Lista de Usuários</h3>
+    <ul>
+        {% for user in usuarios %}
+            <li>
+                {{ user.usuario }} - {{ 'Admin' if user.admin else 'Usuário' }}
+                <button onclick="document.getElementById('editForm{{ user.id }}').style.display='block'">Editar</button>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="delete_user">
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <button type="submit">Apagar</button>
+                </form>
+                <div id="editForm{{ user.id }}" style="display:none;">
+                    <form method="POST">
+                        <input type="hidden" name="edit_user">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <label for="usuario">Usuário:</label>
+                        <input type="text" name="usuario" value="{{ user.usuario }}" required><br>
+                        <label for="senha">Nova Senha:</label>
+                        <input type="password" name="senha"><br>
+                        <label for="admin">Admin:</label>
+                        <input type="radio" name="admin" value="1" {% if user.admin %}checked{% endif %}> Sim
+                        <input type="radio" name="admin" value="0" {% if not user.admin %}checked{% endif %}> Não<br>
+                        <button type="submit">Salvar</button>
+                        <button type="button" onclick="document.getElementById('editForm{{ user.id }}').style.display='none'">Cancelar</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('home') }}">Voltar</a>
+</body>
+</html>
+

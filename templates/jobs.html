@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registros</title>
+    <style>
+        ul.pagination { display: flex; list-style-type: none; padding: 0; }
+        ul.pagination li { margin: 0 5px; }
+    </style>
+    <link rel="stylesheet" href="/static/css/simple.min.css">
+
+    <script>
+        function confirmDeletion(id) {
+            if (confirm('Tem certeza de que deseja apagar este registro?')) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        }
+    </script>
+    
+</head>
+<body>
+    {% include 'menu.html' %}
+    <form method="GET" action="{{ url_for('jobs') }}">
+        <input type="text" name="search" placeholder="Search by name" value="{{ search }}">
+        <input type="submit" value="Search">
+    </form>
+    <a href="{{ url_for('add') }}">Add new job</a>
+    <ul>
+        {% for registro in registros %}
+            <li>
+                 Nome: {{ registro.nome }}, Tipo: {{ registro.tipo }}, Cron: {{ registro.cron }}
+                <a href="{{ url_for('edit', id=registro.id) }}">Editar</a>
+                <form id="delete-form-{{ registro.id }}" method="POST" action="{{ url_for('delete', id=registro.id) }}" style="display: inline;">
+                    <button type="button" onclick="confirmDeletion({{ registro.id }})">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    {{ pagination.links }}
+</body>
+</html>
+
