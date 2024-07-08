@@ -95,6 +95,8 @@ def manage_users():
             admin = request.form.get('admin') == '1'
             readonly = request.form.get('readonly') == '1'
             new_user = Usuario(usuario=usuario, senha=senha, admin=admin, readonly=readonly)
+            if new_user.readonly == 1 :
+                new_user.admin = 0
             db.session.add(new_user)
             db.session.commit()
             flash('Usuário cadastrado com sucesso.')
@@ -106,6 +108,8 @@ def manage_users():
                 user.senha = generate_password_hash(request.form['senha'])
             user.admin = request.form.get('admin') == '1'
             user.readonly = request.form.get('readonly') == '1'
+            if user.readonly == 1 :
+                user.admin = 0
             db.session.commit()
             flash('Usuário editado com sucesso.')
         elif 'delete_user' in request.form:
