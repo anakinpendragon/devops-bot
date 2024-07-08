@@ -67,6 +67,7 @@ def login():
             session['user_id'] = user.id
             session['admin'] = user.admin
             session['readonly'] = user.readonly
+            session['username'] = user.usuario 
             return redirect(url_for('home'))
         flash('Login ou senha incorretos.')
     return render_template('login.html')
@@ -81,7 +82,8 @@ def logout():
 def home():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    return render_template('home.html', admin=session.get('admin', False))
+    usuario=session['username']
+    return render_template('home.html', usuario=usuario,  admin=session.get('admin', False), )
 
 @app.route('/manage_users', methods=['GET', 'POST'])
 def manage_users():

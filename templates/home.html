@@ -7,11 +7,12 @@
 </head>
 <body>
     {% include 'menu.html' %}
-    <h2>welcome</h2>
+    <h2>welcome {{ usuario }}</h2>
     {% if admin %}
         <a href="{{ url_for('manage_users') }}">Manage users</a><br>
     {% endif %}
     <a href="{{ url_for('logout') }}">Logout</a>
+    
 </body>
 </html>
 
