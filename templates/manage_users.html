@@ -16,6 +16,9 @@
         <label for="admin">Admin:</label>
         <input type="radio" id="admin" name="admin" value="1"> Sim
         <input type="radio" id="admin" name="admin" value="0" checked> Não<br>
+        <label for="readonly">Readonly:</label>
+        <input type="radio" id="readonly" name="readonly" value="1"> Sim
+        <input type="radio" id="readonly" name="readonly" value="0" checked> Não<br>
         <button type="submit">Cadastrar</button>
     </form>
     <h3>Lista de Usuários</h3>
@@ -40,6 +43,9 @@
                         <label for="admin">Admin:</label>
                         <input type="radio" name="admin" value="1" {% if user.admin %}checked{% endif %}> Sim
                         <input type="radio" name="admin" value="0" {% if not user.admin %}checked{% endif %}> Não<br>
+                        <label for="readonly">Readonly:</label>
+                        <input type="radio" name="readonly" value="1" {% if user.readonly %}checked{% endif %}> Sim
+                        <input type="radio" name="readonly" value="0" {% if not user.readonly %}checked{% endif %}> Não<br>
                         <button type="submit">Salvar</button>
                         <button type="button" onclick="document.getElementById('editForm{{ user.id }}').style.display='none'">Cancelar</button>
                     </form>

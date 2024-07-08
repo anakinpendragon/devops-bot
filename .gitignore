@@ -3,4 +3,4 @@
 ./data/crons/*
 ./data/scripts/*
 __pycache__
-
+instance/data.db

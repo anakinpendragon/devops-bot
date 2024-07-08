@@ -26,6 +26,7 @@ class Usuario(db.Model):
     usuario = db.Column(db.String(80), unique=True, nullable=False)
     senha = db.Column(db.String(200), nullable=False)
     admin = db.Column(db.Boolean, default=False)
+    readonly = db.Column(db.Boolean, default=False)
 
 class Registro(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +46,9 @@ with app.app_context():
         admin_user = Usuario(
             usuario='admin',
             senha=generate_password_hash('admin'),
-            admin=True
+            admin=True,
+            readonly=False
+            
         )
         db.session.add(admin_user)
         db.session.commit()
@@ -63,6 +66,7 @@ def login():
         if user and check_password_hash(user.senha, senha):
             session['user_id'] = user.id
             session['admin'] = user.admin
+            session['readonly'] = user.readonly
             return redirect(url_for('home'))
         flash('Login ou senha incorretos.')
     return render_template('login.html')
@@ -81,7 +85,7 @@ def home():
 
 @app.route('/manage_users', methods=['GET', 'POST'])
 def manage_users():
-    if 'user_id' not in session or not session.get('admin', False):
+    if 'user_id' not in session or not session.get('admin', False) :
         return 'Acesso negado'
 
     if request.method == 'POST':
@@ -89,7 +93,8 @@ def manage_users():
             usuario = request.form['usuario']
             senha = generate_password_hash(request.form['senha'])
             admin = request.form.get('admin') == '1'
-            new_user = Usuario(usuario=usuario, senha=senha, admin=admin)
+            readonly = request.form.get('readonly') == '1'
+            new_user = Usuario(usuario=usuario, senha=senha, admin=admin, readonly=readonly)
             db.session.add(new_user)
             db.session.commit()
             flash('Usuário cadastrado com sucesso.')
@@ -100,6 +105,7 @@ def manage_users():
             if request.form['senha']:
                 user.senha = generate_password_hash(request.form['senha'])
             user.admin = request.form.get('admin') == '1'
+            user.readonly = request.form.get('readonly') == '1'
             db.session.commit()
             flash('Usuário editado com sucesso.')
         elif 'delete_user' in request.form:
@@ -120,6 +126,8 @@ def manage_users():
 
 @app.route('/jobs/')
 def jobs():
+    if 'user_id' not in session or session.get('readonly', True):
+        return 'Acesso negado'
     if 'user_id' not in session:
         return redirect(url_for('login'))
     search = request.args.get('search')
