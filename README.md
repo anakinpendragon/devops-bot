@@ -12,5 +12,7 @@ curl -X POST http://localhost:8080/webhook/   -H "Content-Type: application/json
 
 
 This project is made to run with docker compose in linux alpine. To you just need to write in shell: \\
-#docker compose build \\
+
+#docker compose build 
+
 #docker compose up \\
