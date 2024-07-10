@@ -1,6 +1,6 @@
-./data/ssh/*
-./data/db/*
-./data/crons/*
-./data/scripts/*
+data/ssh/*
+data/db/*
+data/crons/*
+data/scripts/*
 __pycache__
 instance/data.db
