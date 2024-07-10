@@ -15,4 +15,4 @@ This project is made to run with docker compose in linux alpine. To you just nee
 
 #docker compose build 
 
-#docker compose up \\
+#docker compose up 
