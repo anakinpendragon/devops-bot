@@ -6,6 +6,11 @@ This jobs are made in shell script.
 DEVOPS Bot is made with python, flask, bash, sqlite, and use https://simplecss.org/
 as css theme.
 
-Para executar um script via webhook faça como no exemplo:
+To run a script with webhook, use like this example:
 
 curl -X POST http://localhost:8080/webhook/   -H "Content-Type: application/json"  -d '{"key": "chave", "script_name": "teste1"}'
+
+
+This project is made to run with docker compose in linux alpine. To you just need to write in shell:
+#docker compose build
+#docker compose up
