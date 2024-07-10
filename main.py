@@ -1,5 +1,5 @@
 #Login
-#Rotas / , /login, /logout , /manage_users , /home
+#Rotas / , /login, /logout , /manage_users , /home, /ssh-key/ , /webhook/
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, render_template_string
 from flask_sqlalchemy import SQLAlchemy
@@ -124,10 +124,6 @@ def manage_users():
 
     usuarios = Usuario.query.all()
     return render_template('manage_users.html', usuarios=usuarios)
-
-#edit jobs
-#rotas /jobs , add , edit, delete 
-#chave webhook
 
 
 @app.route('/jobs/')
@@ -322,13 +318,6 @@ def ssh_key():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     key_content = read_ssh_key()
-#    return render_template_string('''
-#        <h1>SSH Public Key</h1>
-#        <pre>{{ key_content }}</pre>
-#        <form action="{{ url_for('generate_key') }}" method="post">
-#            <button type="submit">Generate New SSH Key</button>
-#        </form>
-#   ''', key_content=key_content)
     return render_template('ssh_key.html', key_content=key_content)     
 # Route to generate a new SSH key
 @app.route('/generate', methods=['POST'])
